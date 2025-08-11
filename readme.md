@@ -1,78 +1,63 @@
-# khinsider.py
+# khinsider-fixed.py
 
-`khinsider.py` is a [Python](https://www.python.org/) interface and script for getting [khinsider](http://downloads.khinsider.com/) soundtracks. It makes khinsider mass downloads a breeze. It's easy to use - check it!
-
-From the command line (i.e. regular usage):
+`khinsider-fixed.py` s a maintained fork of the original khinsider.py downloader script for khinsider soundtracks. this fork improves reliability by adding user-agent headers to every HTTP request, helping prevent the script from being blocked by the site and restoring its functionality.
+usage from the command line is simple:
 
 ```cmd
-khinsider.py jumping-flash
+khinsider-fixed.py pesterquest-ost-2019
 ```
 
-As an import (for when you're programming):
+or as a python module:
 
 ```python
-import khinsider
-khinsider.download('jumping-flash')
-# And bam, you've got the Jumping Flash soundtrack!
+import khinsider-fixed
+khinsider-fixed.download('pesterquest-ost-2019')
+# you now have the pesterquest soundtrack!
 ```
 
-For anime music, [check out `thehylia.py`](https://github.com/obskyr/thehylia).
+## About this fork
+this repo is maintained by someone very new to programming who fixed the downloader to work again by adding user-agent headers. thank you obskyr for making the original!!!
 
-Carefully put together by [@obskyr](http://twitter.com/obskyr)!
-
-### **[Download it here!](https://github.com/obskyr/khinsider/archive/master.zip)**
+if you find bugs or want to help improve it, contributions and feedback are very welcome! you can contact me at https://twitter.com/stranger_to_be . (the rest of this description is the same as the original, only slightly edited.) 
 
 ## Usage
 
-Just run `khinsider.py` from the command line with the sole parameter being the soundtrack you want to download. You can either use the soundtrack's ID, or simply copy its entire URL. Easy!
+just run khinsider-fixed.py from the command line with the sole parameter being the soundtrack you want to download. you can either use the soundtrack’s id, or simply copy its entire url. easy!
 
-If you want, you can also add another parameter as the output folder, but that's optional.
+if you want, you can also add another parameter as the output folder, but that’s optional.
 
-You can also download other file formats (if available), like FLAC or OGG, as following:
+you can also download other file formats (if available), like flac or ogg, as following:
 
-```cmd
-khinsider.py --format flac mother-3
-```
+khinsider-fixed.py --format flac mother-3
 
-If you don't want to go to the actual site to look for soundtracks, you can also just type a search term as the first parameter(s), and provided it's not a valid soundtrack, `khinsider.py` will give you a list of soundtracks matching that term.
+if you don’t want to go to the actual site to look for soundtracks, you can also just type a search term as the first parameter(s), and provided it’s not a valid soundtrack, khinsider-fixed.py will give you a list of soundtracks matching that term.
 
-You're going to need [Python](https://www.python.org/downloads/) (if you don't know which version to get, choose the latest version of Python 3 - `khinsider.py` works with both 2 and 3), so install that (and [add it to your path](http://superuser.com/a/143121)) if you haven't already.
+you’re going to need python (if you don’t know which version to get, choose the latest version of python 3 - khinsider-fixed.py works with both 2 and 3), so install that (and add it to your path) if you haven’t already.
 
-You will also need to have [pip](https://pip.readthedocs.org/en/latest/installing.html) installed (if you have Python 3, it is most likely already installed - otherwise, download `get-pip.py` and run it) if you don't already have [requests](https://pypi.python.org/pypi/requests) and [Beautiful Soup 4](https://pypi.python.org/pypi/beautifulsoup4). The first time `khinsider.py` runs, it will install these two for you.
+you will also need to have pip installed (if you have python 3, it is most likely already installed - otherwise, download get-pip.py and run it) if you don’t already have requests and beautiful soup 4. the first time khinsider-fixed.py runs, it will install these two for you.
 
-For more detailed information, try running `khinsider.py --help`!
+for more detailed information, try running khinsider-fixed.py --help!
 
 ## As a module
 
-`khinsider.py` requires two non-standard modules: [requests](https://pypi.python.org/pypi/requests) and [beautifulsoup4](https://pypi.python.org/pypi/beautifulsoup4). Just run a `pip install` on them (with [pip](https://pip.readthedocs.org/en/latest/installing.html)), or just run `khinsider.py` on its own once and it'll install them for you.
+khinsider-fixed.py requires two non-standard modules: requests and beautifulsoup4. just run a pip install on them (with pip), or just run khinsider-fixed.py on its own once and it'll install them for you.
 
-Here are the main functions you will be using:
+here are the main functions you will be using:
+khinsider_fixed.download(soundtrackName[, path="", makeDirs=True, formatOrder=None, verbose=False])
 
-### `khinsider.download(soundtrackName[, path="", makeDirs=True, formatOrder=None, verbose=False])`
+download the soundtrack soundtrackName. this should be the name the soundtrack uses at the end of its album url.
 
-Download the soundtrack `soundtrackName`. This should be the name the soundtrack uses at the end of its album URL.
+if path is specified, the soundtrack files will be downloaded to the directory that path points to.
 
-If `path` is specified, the soundtrack files will be downloaded to the directory that path points to.
+if makeDirs is true, the directory will be created if it doesn’t exist.
 
-If `makeDirs` is `True`, the directory will be created if it doesn't exist.
+you can specify formatOrder to download soundtracks in specific formats. formatOrder=['flac', 'mp3'], for example, will download flacs if available, and mp3s if not.
 
-You can specify `formatOrder` to download soundtracks in specific formats. `formatOrder=['flac', 'mp3']`, for example, will download FLACs if available, and MP3s if not.
+if verbose is true, it will print progress as it is downloading.
+khinsider_fixed.search(term)
 
-If `verbose` is `True`, it will print progress as it is downloading.
-
-### `khinsider.search(term)`
-
-Search khinsider for `term`. Return a list of `Soundtrack`s matching the search term. You can then access `soundtrack.id` or `soundtrack.url`.
+search khinsider-fixed for term. return a list of soundtracks matching the search term. you can then access soundtrack.id or soundtrack.url.
 
 ### More
 
-There's a lot more detail to the API - more than would be sensible to write here. If you want to use `khinsider.py` as a module in a more advanced capacity, have a look at the `Soundtrack`, `Song`, and `File` objects in the source code! They're documented properly there for your reading pleasure.
-
-# Talk to me!
-
-You can easily get to me in these ways:
-
-* [@obskyr](http://twitter.com/obskyr/) on Twitter!
-* [E-mail](mailto:powpowd@gmail.com) me!
-
-I'd love to hear it if you like `khinsider.py`! If there's a problem, or you'd like a new feature, submit an issue here on GitHub.
+there’s a lot more detail to the api - more than would be sensible to write here. if you want to use khinsider-fixed.py as a module in a more advanced capacity, have a look at the soundtrack, song, and file objects in the source code! they’re documented properly there for your reading pleasure.
