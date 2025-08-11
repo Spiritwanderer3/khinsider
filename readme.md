@@ -1,6 +1,6 @@
 # khinsider-fixed.py
 
-`khinsider-fixed.py` s a maintained fork of the original khinsider.py downloader script for khinsider soundtracks. this fork improves reliability by adding user-agent headers to every HTTP request, helping prevent the script from being blocked by the site and restoring its functionality.
+`khinsider-fixed.py` is a maintained fork of the original khinsider.py downloader script for khinsider soundtracks. this fork improves reliability by adding user-agent headers to every HTTP request, helping prevent the script from being blocked by the site and restoring its functionality.
 usage from the command line is simple:
 
 ```cmd
