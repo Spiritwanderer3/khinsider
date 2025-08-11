@@ -120,6 +120,11 @@ if __name__ == '__main__':
 # ------
 
 import requests
+
+# Added browser-like headers for anti-blocking
+BROWSER_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0"
+}
 from bs4 import BeautifulSoup
 
 BASE_URL = 'https://downloads.khinsider.com/'
@@ -163,7 +168,7 @@ def lazyProperty(func):
 
 
 def getSoup(*args, **kwargs):
-    r = requests.get(*args, **kwargs)
+    r = requests.get(*args, **kwargs, headers=BROWSER_HEADERS)
     return toSoup(r)
 
 REMOVE_RE = re.compile(br"^</td>\s*$", re.MULTILINE)
@@ -392,7 +397,7 @@ class Song(object):
     
     @lazyProperty
     def _soup(self):
-        r = requests.get(self.url, timeout=10)
+        r = requests.get(self.url, timeout=10, headers=BROWSER_HEADERS)
         if r.url.rsplit('/', 1)[-1] == '404':
             raise NonexistentSongError("Nonexistent song page (404).")
         return getSoup(self.url)
@@ -440,7 +445,7 @@ class File(object):
     
     def download(self, path):
         """Download the file to `path`."""
-        response = requests.get(self.url, timeout=10)
+        response = requests.get(self.url, timeout=10, headers=BROWSER_HEADERS)
         with open(path, 'wb') as outFile:
             outFile.write(response.content)
 
@@ -466,7 +471,7 @@ def search(term):
     `term`. The first tuple contains album name results, and the second song
     name results.
     """
-    r = requests.get(urljoin(BASE_URL, 'search'), params={'search': term})
+    r = requests.get(urljoin(BASE_URL, 'search', headers=BROWSER_HEADERS), params={'search': term})
     path = urlsplit(r.url).path
     if path.split('/', 2)[1] == 'game-soundtracks':
         return [Soundtrack(path.rsplit('/', 1)[-1])]
